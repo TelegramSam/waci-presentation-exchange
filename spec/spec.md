@@ -631,7 +631,7 @@ JSON message
 ```json=
 {
   "type": "https://didcomm.org/out-of-band/2.0/invitation",
-  "id": "<id used for context as pthid>",
+  "id": "6e3cd86a-d365-11eb-b8bc-0242ac130003",
   "from": "did:example:verifier",
   "body": {
       "goal_code": "streamlined-vp",
@@ -643,14 +643,18 @@ JSON message
 To encode this message, remove all json whitespace and Base 64 URL encode.
 
 ```
-eyJ0eXBlIjoiaHR0cHM6Ly9kaWRjb21tLm9yZy9vdXQtb2YtYmFuZC8yLjAvaW52aXRhdGlvbiIsImlkIjoiPGlkIHVzZWQgZm9yIGNvbnRleHQgYXMgcHRoaWQ-IiwiZnJvbSI6ImRpZDpleGFtcGxlOnZlcmlmaWVyIiwiYm9keSI6eyJnb2FsX2NvZGUiOiJzdHJlYW1saW5lZC12cCIsImFjY2VwdCI6WyJkaWRjb21tL3YyIl19fQ==
+eyJ0eXBlIjoiaHR0cHM6Ly9kaWRjb21tLm9yZy9vdXQtb2YtYmFuZC8yLjAvaW52aXRhdGlvbiIsImlkIjoiNmUzY2Q4NmEtZDM2NS0xMWViLWI4YmMtMDI0MmFjMTMwMDAzIiwiZnJvbSI6ImRpZDpleGFtcGxlOnZlcmlmaWVyIiwiYm9keSI6eyJnb2FsX2NvZGUiOiJzdHJlYW1saW5lZC12cCIsImFjY2VwdCI6WyJkaWRjb21tL3YyIl19fQ==
 ```
 
 Prepend this encoded string with a domain and path, and a query parameter of `_oob` set to the encoded message. 
 
 ```
-https://example.com/some/path?_oob=eyJ0eXBlIjoiaHR0cHM6Ly9kaWRjb21tLm9yZy9vdXQtb2YtYmFuZC8yLjAvaW52aXRhdGlvbiIsImlkIjoiPGlkIHVzZWQgZm9yIGNvbnRleHQgYXMgcHRoaWQ-IiwiZnJvbSI6ImRpZDpleGFtcGxlOnZlcmlmaWVyIiwiYm9keSI6eyJnb2FsX2NvZGUiOiJzdHJlYW1saW5lZC12cCIsImFjY2VwdCI6WyJkaWRjb21tL3YyIl19fQ==
+https://example.com/some/path?_oob=eyJ0eXBlIjoiaHR0cHM6Ly9kaWRjb21tLm9yZy9vdXQtb2YtYmFuZC8yLjAvaW52aXRhdGlvbiIsImlkIjoiNmUzY2Q4NmEtZDM2NS0xMWViLWI4YmMtMDI0MmFjMTMwMDAzIiwiZnJvbSI6ImRpZDpleGFtcGxlOnZlcmlmaWVyIiwiYm9keSI6eyJnb2FsX2NvZGUiOiJzdHJlYW1saW5lZC12cCIsImFjY2VwdCI6WyJkaWRjb21tL3YyIl19fQ==
 ```
+
+Present as a link, or as a QR code.
+
+![QR Code Example](.\resources\qrcode_example.png)
 
 The URI, if loaded into a browser should display instructions on how to download and use a mobile application. If scanned inside an app that understands this protocol, the message should be extracted from the URI's `_oob` query parameter and processed without resolving the URI. This behavior allows for a better fallback user experience should a user encounter a QR code without having a suitable app.
 
@@ -668,8 +672,8 @@ in the [challenge token section](#challenge-token-2) above:
 ```json
 {
     "type": "https://didcomm.org/present-proof/3.0/propose-presentation",
-    "id": "<message unique id>",
-    "pthid": "<id present in invitation>",
+    "id": "0d818b6d-0809-4512-9665-007450d060bf",
+    "pthid": "6e3cd86a-d365-11eb-b8bc-0242ac130003",
     "from": "did:example:prover",
     "to": "did:example:verifier"
 }
@@ -698,6 +702,7 @@ DIDComm attachment:
 {
   "type": "https://didcomm.org/present-proof/3.0/request-presentation",
   "id": "0ac534c8-98ed-4fe3-8a41-3600775e1e92",
+  "thid": "0d818b6d-0809-4512-9665-007450d060bf",
   "from": "did:example:verifier",
   "to": "did:example:prover",
   "body": {},
@@ -777,6 +782,7 @@ object for the VP and used to generate the signature there.
 {
   "type": "https://didcomm.org/present-proof/3.0/presentation",
   "id": "f1ca8245-ab2d-4d9c-8d7d-94bf310314ef",
+  "thid": "0d818b6d-0809-4512-9665-007450d060bf",
   "from": "did:example:verifier",
   "to": "did:example:prover",
   "body": {},
